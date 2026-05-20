@@ -1,0 +1,43 @@
+{
+  "vystavni_vysledky": {
+    "cac": 10,
+    "cacib": 4,
+    "cajc": 4,
+    "fci_cacib_j": 1,
+    "bob": 3,
+    "bos": 3,
+    "boj": 2,
+    "res_cacib": 2,
+    "narodni_vitez": 7
+  },
+  "tituly": [
+    {
+      "nazev": "Evropský vítěz mladých",
+      "organizace": "Euro Griffon Papillon",
+      "stupen": "gold",
+      "ikona": "🏆",
+      "diplom": "diplomy/evropsky_vitez_mladych.pdf"
+    },
+    {
+      "nazev": "Vítěz speciální výstavy mladých",
+      "organizace": "Speciální výstava",
+      "stupen": "gold",
+      "ikona": "🥇",
+      "diplom": "diplomy/vitez_specialni_vystavy.pdf"
+    },
+    {
+      "nazev": "Český juniorský šampion",
+      "organizace": "ČKS",
+      "stupen": "silver",
+      "ikona": "🏅",
+      "diplom": "diplomy/cesky_juniorsky_sampion.pdf"
+    },
+    {
+      "nazev": "Rakouský juniorský šampion",
+      "organizace": "ÖKV",
+      "stupen": "silver",
+      "ikona": "🏅",
+      "diplom": "diplomy/rakousky_juniorsky_sampion.pdf"
+    }
+  ]
+}

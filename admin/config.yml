@@ -1,0 +1,53 @@
+backend:
+  name: git-gateway
+  branch: main
+
+locale: cs
+
+media_folder: images
+public_folder: images
+
+collections:
+  - name: "nastaveni"
+    label: "Nastavení webu"
+    files:
+
+      - name: "vysledky"
+        label: "🏆 Výstavní výsledky"
+        file: "content.json"
+        format: json
+        fields:
+          - label: "Výstavní výsledky (počty)"
+            name: "vystavni_vysledky"
+            widget: "object"
+            fields:
+              - { label: "CAC", name: "cac", widget: "number", value_type: "int", min: 0 }
+              - { label: "CACIB", name: "cacib", widget: "number", value_type: "int", min: 0 }
+              - { label: "CAJC", name: "cajc", widget: "number", value_type: "int", min: 0 }
+              - { label: "FCI-CACIB-J", name: "fci_cacib_j", widget: "number", value_type: "int", min: 0 }
+              - { label: "BOB", name: "bob", widget: "number", value_type: "int", min: 0 }
+              - { label: "BOS", name: "bos", widget: "number", value_type: "int", min: 0 }
+              - { label: "BOJ", name: "boj", widget: "number", value_type: "int", min: 0 }
+              - { label: "res-CACIB", name: "res_cacib", widget: "number", value_type: "int", min: 0 }
+              - { label: "Národní vítěz", name: "narodni_vitez", widget: "number", value_type: "int", min: 0 }
+
+          - label: "Šampionské tituly"
+            name: "tituly"
+            widget: "list"
+            label_singular: "Titul"
+            fields:
+              - { label: "Název titulu", name: "nazev", widget: "string" }
+              - { label: "Organizace", name: "organizace", widget: "string" }
+              - label: "Stupeň (gold nebo silver)"
+                name: "stupen"
+                widget: "select"
+                options: ["gold", "silver"]
+              - label: "Ikona"
+                name: "ikona"
+                widget: "select"
+                options: ["🏆", "🥇", "🏅", "🥈", "⭐"]
+              - label: "Diplom (PDF soubor v složce diplomy/)"
+                name: "diplom"
+                widget: "string"
+                required: false
+                hint: "Např. diplomy/evropsky_vitez_mladych.pdf"
