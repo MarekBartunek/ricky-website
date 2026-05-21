@@ -337,6 +337,16 @@
   </footer>
 
   <script src="app.js"></script>
+
+  <!-- Netlify Identity: redirect invite/recovery tokens from main page to admin -->
+  <script>
+    (function() {
+      var hash = window.location.hash;
+      if (hash && (hash.indexOf('invite_token=') !== -1 || hash.indexOf('recovery_token=') !== -1)) {
+        window.location.replace('/admin/' + hash);
+      }
+    })();
+  </script>
 <script data-pplx-inline-edit>
 (function(){
   if(window===window.top)return;
