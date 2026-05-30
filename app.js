@@ -1,1066 +1,427 @@
 /* ======================================================
-   RICKY – Francouzská lilie
-   Playful + Professional dog show site
-   Palette: warm cream / deep black-tan / gold accent
+   Ricky – Francouzská lilie
+   App JS: i18n, dark mode, mobile nav, lightbox, scroll reveal, form
    ====================================================== */
  
-/* ---------- Design Tokens ---------- */
-:root,
-[data-theme='light'] {
-  --text-xs:   clamp(0.75rem,  0.7rem + 0.25vw, 0.875rem);
-  --text-sm:   clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
-  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
-  --text-lg:   clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
-  --text-xl:   clamp(1.5rem,   1.2rem + 1.25vw, 2.25rem);
-  --text-2xl:  clamp(2rem,     1.2rem + 2.5vw, 3.5rem);
-  --text-3xl:  clamp(2.5rem,   1rem + 4vw, 5rem);
- 
-  --space-1:  0.25rem;
-  --space-2:  0.5rem;
-  --space-3:  0.75rem;
-  --space-4:  1rem;
-  --space-5:  1.25rem;
-  --space-6:  1.5rem;
-  --space-8:  2rem;
-  --space-10: 2.5rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
-  --space-20: 5rem;
-  --space-24: 6rem;
- 
-  /* Warm cream palette inspired by the dog's coat */
-  --color-bg:             #faf8f3;
-  --color-surface:        #fdfcf8;
-  --color-surface-2:      #f5f1e8;
-  --color-surface-offset: #ede8db;
-  --color-border:         #d8d1be;
-  --color-divider:        #e4dece;
- 
-  --color-text:           #1e1a12;
-  --color-text-muted:     #6b6456;
-  --color-text-faint:     #b8b0a0;
-  --color-text-inverse:   #fdfcf8;
- 
-  /* Deep rich brown-black (inspired by Griffon coat) */
-  --color-primary:           #2c1a0a;
-  --color-primary-hover:     #1a0d04;
-  --color-primary-active:    #0d0602;
-  --color-primary-highlight: #ece5d8;
- 
-  /* Gold accent (ribbons + trophies) */
-  --color-gold:           #b8860b;
-  --color-gold-light:     #f0c040;
-  --color-accent-light:   #d4a55a;
- 
-  /* Success */
-  --color-success:         #437a22;
-  --color-error:           #a12c2c;
- 
-  --radius-sm:   0.375rem;
-  --radius-md:   0.625rem;
-  --radius-lg:   1rem;
-  --radius-xl:   1.5rem;
-  --radius-full: 9999px;
- 
-  --shadow-sm:  0 1px 3px rgba(30,26,18,0.08);
-  --shadow-md:  0 4px 16px rgba(30,26,18,0.10);
-  --shadow-lg:  0 12px 40px rgba(30,26,18,0.14);
- 
-  --transition: 200ms cubic-bezier(0.16,1,0.3,1);
- 
-  --content-narrow:  640px;
-  --content-default: 1020px;
-  --content-wide:    1280px;
- 
-  --font-display: 'Chillax', 'Georgia', serif;
-  --font-body:    'Satoshi', 'Inter', sans-serif;
- 
-  --header-h: 68px;
-}
- 
-[data-theme='dark'] {
-  --color-bg:             #16130d;
-  --color-surface:        #1d1a12;
-  --color-surface-2:      #231f16;
-  --color-surface-offset: #2a261b;
-  --color-border:         #3a3526;
-  --color-divider:        #2e2a1e;
-  --color-text:           #e8e2d4;
-  --color-text-muted:     #8a8070;
-  --color-text-faint:     #564e3e;
-  --color-text-inverse:   #16130d;
-  --color-primary:           #e8c87a;
-  --color-primary-hover:     #f0d896;
-  --color-primary-active:    #f8e8b0;
-  --color-primary-highlight: #2e2618;
-  --color-gold:           #e8c050;
-  --color-gold-light:     #f8d870;
-  --color-accent-light:   #c8a060;
-  --shadow-sm:  0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md:  0 4px 16px rgba(0,0,0,0.4);
-  --shadow-lg:  0 12px 40px rgba(0,0,0,0.5);
-}
- 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-bg:             #16130d;
-    --color-surface:        #1d1a12;
-    --color-surface-2:      #231f16;
-    --color-surface-offset: #2a261b;
-    --color-border:         #3a3526;
-    --color-divider:        #2e2a1e;
-    --color-text:           #e8e2d4;
-    --color-text-muted:     #8a8070;
-    --color-text-faint:     #564e3e;
-    --color-text-inverse:   #16130d;
-    --color-primary:           #e8c87a;
-    --color-primary-hover:     #f0d896;
-    --color-primary-highlight: #2e2618;
-    --color-gold:           #e8c050;
-    --color-gold-light:     #f8d870;
-    --color-accent-light:   #c8a060;
+/* ---- Translations ---- */
+const i18n = {
+  cs: {
+    nav_about:       'O mně',
+    nav_gallery:     'Galerie',
+    nav_awards:      'Ocenění',
+    nav_contact:     'Kontakt',
+    hero_badge:      'Belgický Griffonek',
+    hero_subtitle:   'Francouzská lilie',
+    hero_tagline:    'Malý pes. Velká osobnost. Šampion.',
+    hero_cta:        'Poznat Rickyho',
+    about_title:     'Ahoj, já jsem Ricky!',
+    about_intro:     'Jmenuji se <strong>Ricky, Francouzská lilie</strong> a jsem hrdý Belgický Griffonek plný energie, lásky a šampionského ducha. Narodil jsem se <strong>1. ledna 2024</strong> a od prvního dne dobývám výstavní ringy i srdce všech, kdo mě potkají.',
+    about_body:      'Jsem chovný pes s výborným zdravím — pately 0/0, zuby 6/6, výborné kardiologické vyšetření včetně zátěžového, a genetické vyšetření bez nálezu. Moje majitelka je <strong>Věra Bartůňková</strong>, která mě připravuje na ty největší výstavy.',
+    stat_born:       'Datum narození',
+    stat_class:      'Třída',
+    stat_breeding:   'Status',
+    health_title:    'Zdravotní vyšetření',
+    health_patella:  'Pately 0/0',
+    health_teeth:    'Zuby 6/6',
+    health_cardio:   'Výborné kardiologické vyšetření vč. zátěžového',
+    health_genetic:  'Genetické vyšetření',
+    gallery_title:   'Moje fotky',
+    gallery_subtitle:'Od výstavního ringu až po pohodičku doma — to jsem já.',
+    gallery_cap1:    'Na výstavě',
+    gallery_cap2:    'Na zahradě',
+    gallery_cap3:    'Moje oblíbené místo',
+    gallery_cap4:    'Doma',
+    gallery_cap5:    'Moje sbírka trofejí',
+    gallery_cap6:    'Dávám pac!',
+    gallery_cap7:    'S majitelkou po výhře',
+    gallery_cap8:    'Připraven na ring',
+    awards_title:    'Má ocenění',
+    awards_subtitle: 'Každá stuha, každý pohár — výsledek tvrdé práce a radosti ze života v ringu.',
+    awards_titles_heading: 'Šampionské tituly',
+    awards_results_heading:'Výstavní výsledky',
+    title_european:       'Evropský Klubový Vítěz Mladých',
+    title_czech_junior:   'Český Juniorský Šampion',
+    title_czech_champion: 'Český Šampion',
+    title_austrian:       'Rakouský Šampion',
+    award_national:  'Národní vítěz',
+    contact_title:   'Napište nám',
+    contact_subtitle:'Máte zájem o bližší informace o Rickym nebo chovných možnostech? Napište nám!',
+    form_first_name: 'Jméno',
+    form_last_name:  'Příjmení',
+    form_email:      'E-mail',
+    form_message:    'Zpráva',
+    form_submit:     'Odeslat zprávu',
+    form_required:   'Toto pole je povinné',
+    form_email_invalid: 'Zadejte platnou e-mailovou adresu',
+    form_success_msg:'Děkujeme! Vaše zpráva byla odeslána.',
+    form_first_name_ph: 'Vaše jméno',
+    form_last_name_ph:  'Vaše příjmení',
+    form_email_ph:      'vas@email.cz',
+    form_message_ph:    'Vaše zpráva...',
+    footer_subtitle: 'Francouzská lilie · Belgický Griffonek',
+    footer_owner:    'Majitel:',
+    footer_copy:     '© 2026 Ricky Francouzská lilie. Všechna práva vyhrazena.',
+  },
+  de: {
+    nav_about:       'Über mich',
+    nav_gallery:     'Galerie',
+    nav_awards:      'Auszeichnungen',
+    nav_contact:     'Kontakt',
+    hero_badge:      'Belgischer Griffon',
+    hero_subtitle:   'Francouzská lilie',
+    hero_tagline:    'Kleiner Hund. Große Persönlichkeit. Champion.',
+    hero_cta:        'Ricky kennenlernen',
+    about_title:     'Hallo, ich bin Ricky!',
+    about_intro:     'Mein Name ist <strong>Ricky, Francouzská lilie</strong> und ich bin ein stolzer Belgischer Griffon voller Energie, Liebe und Championgeist. Ich wurde am <strong>1. Januar 2024</strong> geboren und erobere seitdem Ausstellungsringe und Herzen.',
+    about_body:      'Ich bin ein Zuchtrüde mit ausgezeichneter Gesundheit — Patellae 0/0, Zähne 6/6, hervorragende kardiologische Untersuchung inkl. Belastungstest und genetische Untersuchung. Meine Besitzerin ist <strong>Věra Bartůňková</strong>, die mich auf die größten Ausstellungen vorbereitet.',
+    stat_born:       'Geburtsdatum',
+    stat_class:      'Klasse',
+    stat_breeding:   'Status',
+    health_title:    'Gesundheitsuntersuchungen',
+    health_patella:  'Patellae 0/0',
+    health_teeth:    'Zähne 6/6',
+    health_cardio:   'Hervorragende kardiologische Untersuchung inkl. Belastungstest',
+    health_genetic:  'Genetische Untersuchung',
+    gallery_title:   'Meine Fotos',
+    gallery_subtitle:'Vom Ausstellungsring bis zur Gemütlichkeit zu Hause — das bin ich.',
+    gallery_cap1:    'Bei der Ausstellung',
+    gallery_cap2:    'Im Garten',
+    gallery_cap3:    'Mein Lieblingsplatz',
+    gallery_cap4:    'Zu Hause',
+    gallery_cap5:    'Meine Trophäensammlung',
+    gallery_cap6:    'Pfötchen geben!',
+    gallery_cap7:    'Mit der Besitzerin nach dem Sieg',
+    gallery_cap8:    'Bereit für den Ring',
+    awards_title:    'Meine Auszeichnungen',
+    awards_subtitle: 'Jedes Band, jeder Pokal — Ergebnis harter Arbeit und Freude am Ring.',
+    awards_titles_heading: 'Champion-Titel',
+    awards_results_heading:'Ausstellungsergebnisse',
+    title_european:       'Europäischer Klubjugendsieger',
+    title_czech_junior:   'Tschechischer Jugendchampion',
+    title_czech_champion: 'Tschechischer Champion',
+    title_austrian:       'Österreichischer Champion',
+    award_national:  'Nationaler Sieger',
+    contact_title:   'Schreiben Sie uns',
+    contact_subtitle:'Interesse an Ricky oder Zuchtmöglichkeiten? Wir freuen uns auf Ihre Nachricht!',
+    form_first_name: 'Vorname',
+    form_last_name:  'Nachname',
+    form_email:      'E-Mail',
+    form_message:    'Nachricht',
+    form_submit:     'Nachricht senden',
+    form_required:   'Dieses Feld ist erforderlich',
+    form_email_invalid: 'Bitte geben Sie eine gültige E-Mail-Adresse ein',
+    form_success_msg:'Danke! Ihre Nachricht wurde gesendet.',
+    form_first_name_ph: 'Ihr Vorname',
+    form_last_name_ph:  'Ihr Nachname',
+    form_email_ph:      'ihre@email.de',
+    form_message_ph:    'Ihre Nachricht...',
+    footer_subtitle: 'Francouzská lilie · Belgischer Griffon',
+    footer_owner:    'Besitzer:',
+    footer_copy:     '© 2026 Ricky Francouzská lilie. Alle Rechte vorbehalten.',
+  },
+  en: {
+    nav_about:       'About Me',
+    nav_gallery:     'Gallery',
+    nav_awards:      'Awards',
+    nav_contact:     'Contact',
+    hero_badge:      'Belgian Griffon',
+    hero_subtitle:   'Francouzská lilie',
+    hero_tagline:    'Small dog. Big personality. Champion.',
+    hero_cta:        'Meet Ricky',
+    about_title:     'Hello, I\'m Ricky!',
+    about_intro:     'My name is <strong>Ricky, Francouzská lilie</strong> and I am a proud Belgian Griffon full of energy, love and champion spirit. I was born on <strong>1 January 2024</strong> and from day one I have been conquering show rings and hearts alike.',
+    about_body:      'I am a breeding dog with excellent health — patellas 0/0, teeth 6/6, excellent cardiac examination including stress test, and genetic testing clear. My owner is <strong>Věra Bartůňková</strong>, who prepares me for the biggest shows.',
+    stat_born:       'Date of birth',
+    stat_class:      'Class',
+    stat_breeding:   'Status',
+    health_title:    'Health Examinations',
+    health_patella:  'Patellas 0/0',
+    health_teeth:    'Teeth 6/6',
+    health_cardio:   'Excellent cardiac examination incl. stress test',
+    health_genetic:  'Genetic testing clear',
+    gallery_title:   'My Photos',
+    gallery_subtitle:'From the show ring to cosy moments at home — that\'s me.',
+    gallery_cap1:    'At the show',
+    gallery_cap2:    'In the garden',
+    gallery_cap3:    'My favourite spot',
+    gallery_cap4:    'At home',
+    gallery_cap5:    'My trophy collection',
+    gallery_cap6:    'Giving a paw!',
+    gallery_cap7:    'With my owner after a win',
+    gallery_cap8:    'Ready for the ring',
+    awards_title:    'My Awards',
+    awards_subtitle: 'Every ribbon, every trophy — the result of hard work and joy in the ring.',
+    awards_titles_heading: 'Champion Titles',
+    awards_results_heading:'Show Results',
+    title_european:       'European Club Youth Winner',
+    title_czech_junior:   'Czech Junior Champion',
+    title_czech_champion: 'Czech Champion',
+    title_austrian:       'Austrian Champion',
+    award_national:  'National Winner',
+    contact_title:   'Contact Us',
+    contact_subtitle:'Interested in learning more about Ricky or breeding opportunities? Drop us a message!',
+    form_first_name: 'First name',
+    form_last_name:  'Last name',
+    form_email:      'Email',
+    form_message:    'Message',
+    form_submit:     'Send message',
+    form_required:   'This field is required',
+    form_email_invalid: 'Please enter a valid email address',
+    form_success_msg:'Thank you! Your message has been sent.',
+    form_first_name_ph: 'Your first name',
+    form_last_name_ph:  'Your last name',
+    form_email_ph:      'you@email.com',
+    form_message_ph:    'Your message...',
+    footer_subtitle: 'Francouzská lilie · Belgian Griffon',
+    footer_owner:    'Owner:',
+    footer_copy:     '© 2026 Ricky Francouzská lilie. All rights reserved.',
   }
-}
+};
  
-/* ---------- Base Reset ---------- */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ---- i18n Engine ---- */
+let currentLang = 'cs';
  
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  scroll-behavior: smooth;
-  scroll-padding-top: var(--header-h);
-}
+function applyTranslation(lang) {
+  currentLang = lang;
+  const t = i18n[lang];
+  if (!t) return;
  
-body {
-  min-height: 100dvh;
-  line-height: 1.65;
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  color: var(--color-text);
-  background-color: var(--color-bg);
-  transition: background-color 0.3s, color 0.3s;
-}
+  // Set html lang
+  const langMap = { cs: 'cs', de: 'de', en: 'en' };
+  document.documentElement.lang = langMap[lang] || 'cs';
  
-img, picture, video { display: block; max-width: 100%; height: auto; }
-ul[role='list'], ol[role='list'] { list-style: none; }
-input, button, textarea, select { font: inherit; color: inherit; }
-h1,h2,h3,h4,h5,h6 { text-wrap: balance; line-height: 1.18; font-family: var(--font-display); }
-p, li, figcaption { text-wrap: pretty; max-width: 72ch; }
-button { cursor: pointer; background: none; border: none; }
+  // Translate all [data-i18n] elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) {
+      el.innerHTML = t[key];
+    }
+  });
  
-::selection { background: rgba(184,134,11,0.25); color: var(--color-text); }
+  // Translate placeholders
+  document.querySelectorAll('[data-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-placeholder');
+    if (t[key] !== undefined) {
+      el.setAttribute('placeholder', t[key]);
+    }
+  });
  
-:focus-visible {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 3px;
-  border-radius: var(--radius-sm);
-}
- 
-a, button, input, textarea, select {
-  transition: color var(--transition), background var(--transition),
-              border-color var(--transition), box-shadow var(--transition),
-              opacity var(--transition);
-}
- 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
+  // Update form hidden subject line
+  const subjectInput = document.querySelector('input[name="_subject"]');
+  if (subjectInput) {
+    const subjects = {
+      cs: 'Zpráva z webu – Ricky Francouzská lilie',
+      de: 'Nachricht von der Website – Ricky Francouzská lilie',
+      en: 'Message from website – Ricky Francouzská lilie'
+    };
+    subjectInput.value = subjects[lang];
   }
-}
- 
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0;
-  margin: -1px; overflow: hidden; clip: rect(0,0,0,0);
-  white-space: nowrap; border-width: 0;
-}
- 
-/* ---------- Layout ---------- */
-.container {
-  width: 100%;
-  max-width: var(--content-default);
-  margin-inline: auto;
-  padding-inline: clamp(var(--space-4), 5vw, var(--space-10));
-}
-.container--narrow { max-width: var(--content-narrow); }
- 
-/* ---------- Buttons ---------- */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-8);
-  border-radius: var(--radius-full);
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-decoration: none;
-  cursor: pointer;
-  border: 2px solid transparent;
-  white-space: nowrap;
-}
-.btn-primary {
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-  border-color: var(--color-primary);
-}
-[data-theme='dark'] .btn-primary {
-  background: var(--color-gold);
-  color: #16130d;
-  border-color: var(--color-gold);
-}
-.btn-primary:hover {
-  background: var(--color-primary-hover);
-  border-color: var(--color-primary-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
-}
-.btn-full { width: 100%; }
- 
-/* ---------- Section Shared ---------- */
-.section {
-  padding-block: clamp(var(--space-16), 10vw, var(--space-24));
-}
- 
-.section-label {
-  display: inline-block;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-gold);
-  margin-bottom: var(--space-3);
-}
- 
-.section-title {
-  font-family: var(--font-display);
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: var(--space-4);
-  line-height: 1.12;
-}
- 
-.section-subtitle {
-  font-size: var(--text-base);
-  color: var(--color-text-muted);
-  max-width: 60ch;
-  margin-bottom: var(--space-12);
-}
- 
-/* ============================================================
-   HEADER
-   ============================================================ */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: color-mix(in srgb, var(--color-bg) 92%, transparent);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--color-divider);
-  transition: box-shadow var(--transition);
-}
- 
-.header-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-6);
-  height: var(--header-h);
-  max-width: var(--content-wide);
-  margin-inline: auto;
-  padding-inline: clamp(var(--space-4), 5vw, var(--space-10));
-}
- 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  text-decoration: none;
-  color: var(--color-text);
-  flex-shrink: 0;
-}
-.logo:hover { opacity: 0.8; }
- 
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  line-height: 1.1;
-}
-.logo-sub {
-  font-size: var(--text-xs);
-  font-weight: 400;
-  color: var(--color-text-muted);
-  font-family: var(--font-body);
-  letter-spacing: 0.04em;
-}
- 
-.main-nav {
-  display: flex;
-  align-items: center;
-  gap: var(--space-6);
-}
-.nav-link {
-  font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  letter-spacing: 0.02em;
-}
-.nav-link:hover { color: var(--color-text); }
- 
-.header-controls {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
-  flex-shrink: 0;
-}
- 
-/* Language switcher */
-.lang-switcher {
-  display: flex;
-  background: var(--color-surface-offset);
-  border-radius: var(--radius-full);
-  padding: 3px;
-  gap: 2px;
-  border: 1px solid var(--color-border);
-}
-.lang-btn {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  padding: 3px 9px;
-  border-radius: var(--radius-full);
-  color: var(--color-text-muted);
-  background: transparent;
-  cursor: pointer;
-  border: none;
-}
-.lang-btn:hover { color: var(--color-text); }
-.lang-btn.active {
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-}
-[data-theme='dark'] .lang-btn.active {
-  background: var(--color-gold);
-  color: #16130d;
-}
- 
-/* Theme toggle */
-.theme-toggle {
-  width: 36px; height: 36px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: var(--radius-full);
-  color: var(--color-text-muted);
-  background: var(--color-surface-offset);
-  border: 1px solid var(--color-border);
-}
-.theme-toggle:hover { color: var(--color-text); background: var(--color-surface-2); }
- 
-/* Burger */
-.burger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 36px; height: 36px;
-  padding: 6px;
-  border-radius: var(--radius-md);
-  background: var(--color-surface-offset);
-  border: 1px solid var(--color-border);
-}
-.burger span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background: var(--color-text);
-  border-radius: 2px;
-  transition: transform 0.2s, opacity 0.2s;
-}
- 
-/* Mobile nav */
-.mobile-nav {
-  display: flex;
-  flex-direction: column;
-  padding: var(--space-4) clamp(var(--space-4), 5vw, var(--space-10));
-  border-top: 1px solid var(--color-divider);
-  background: var(--color-surface);
-  gap: var(--space-1);
-}
-.mobile-nav-link {
-  font-size: var(--text-base);
-  font-weight: 500;
-  color: var(--color-text);
-  text-decoration: none;
-  padding-block: var(--space-3);
-  border-bottom: 1px solid var(--color-divider);
-}
-.mobile-nav-link:last-child { border-bottom: none; }
-.mobile-nav-link:hover { color: var(--color-gold); }
- 
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero {
-  position: relative;
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  text-align: center;
-}
- 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 30%;
-}
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(22,19,13,0.55) 0%,
-    rgba(22,19,13,0.45) 60%,
-    rgba(22,19,13,0.75) 100%
-  );
-}
- 
-.hero-content {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-5);
-  padding-inline: var(--space-6);
-  max-width: 720px;
-}
- 
-.hero-badge {
-  display: inline-block;
-  background: var(--color-gold);
-  color: #16130d;
-  font-size: var(--text-xs);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: var(--space-2) var(--space-5);
-  border-radius: var(--radius-full);
-}
- 
-.hero-title {
-  font-family: var(--font-display);
-  font-size: var(--text-3xl);
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -0.02em;
-  line-height: 1;
-}
- 
-.hero-subtitle {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  color: var(--color-gold-light);
-  font-weight: 400;
-  font-style: italic;
-}
- 
-.hero-tagline {
-  font-size: var(--text-base);
-  color: rgba(255,255,255,0.82);
-  max-width: 40ch;
-}
- 
-.hero-scroll-hint {
-  position: absolute;
-  bottom: var(--space-8);
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(255,255,255,0.6);
-  animation: bounce 2s ease-in-out infinite;
-  z-index: 1;
-}
- 
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
-}
- 
-/* ============================================================
-   ABOUT
-   ============================================================ */
-.about-section { background: var(--color-surface); }
- 
-.about-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(var(--space-8), 5vw, var(--space-16));
-  align-items: start;
-}
- 
-.about-intro {
-  font-size: var(--text-lg);
-  color: var(--color-text);
-  margin-bottom: var(--space-6);
-  line-height: 1.6;
-}
- 
-.about-text > p {
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-6);
-}
- 
-.stats-row {
-  display: flex;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  margin-top: var(--space-8);
-}
-.stat-card {
-  flex: 1;
-  min-width: 130px;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-1);
-  padding: var(--space-5) var(--space-4);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  text-align: center;
-}
-.stat-number {
-  font-family: var(--font-display);
-  font-size: var(--text-lg);
-  font-weight: 700;
-  color: var(--color-text);
-}
-.stat-label {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
- 
-.about-img-wrap {
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  aspect-ratio: 3/4;
-}
-.about-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
- 
-.about-health-card {
-  margin-top: var(--space-6);
-  padding: var(--space-6);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  border-left: 4px solid var(--color-gold);
-}
-.about-health-card h3 {
-  font-size: var(--text-base);
-  font-weight: 700;
-  margin-bottom: var(--space-4);
-  font-family: var(--font-body);
-}
-.health-list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-.health-list li {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  max-width: none;
-}
-.health-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-  background: var(--color-success);
-  color: white;
-  border-radius: var(--radius-full);
-  font-size: 11px;
-  font-weight: 700;
-  flex-shrink: 0;
-}
- 
-/* ============================================================
-   GALLERY
-   ============================================================ */
-.gallery-section {
-  background: var(--color-bg);
-}
- 
-.gallery-section > .container {
-  margin-bottom: var(--space-10);
-}
- 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: 280px;
-  gap: var(--space-3);
-  padding-inline: clamp(var(--space-4), 5vw, var(--space-10));
-  max-width: var(--content-wide);
-  margin-inline: auto;
-}
- 
-.gallery-item {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-lg);
-  cursor: pointer;
-  background: var(--color-surface-offset);
-}
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-}
-.gallery-item:hover img { transform: scale(1.06); }
- 
-.gallery-item figcaption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: var(--space-3) var(--space-4);
-  background: linear-gradient(to top, rgba(22,19,13,0.85), transparent);
-  color: #fff;
-  font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.25s, transform 0.25s;
-  max-width: none;
-}
-.gallery-item:hover figcaption { opacity: 1; transform: translateY(0); }
- 
-.gallery-item--large {
-  grid-column: span 2;
-  grid-row: span 2;
-}
-.gallery-item--wide {
-  grid-column: span 2;
-}
- 
-/* ============================================================
-   AWARDS
-   ============================================================ */
-.awards-section { background: var(--color-surface); }
- 
-.awards-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(var(--space-8), 5vw, var(--space-16));
-  align-items: start;
-  margin-bottom: var(--space-12);
-}
- 
-.awards-sub-title {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-6);
-}
- 
-/* Champion title cards */
-.title-cards {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
- 
-.title-card {
-  display: flex;
-  align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-5) var(--space-6);
-  border-radius: var(--radius-lg);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  transition: box-shadow var(--transition), transform var(--transition);
-}
-.title-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
- 
-.title-card--gold {
-  border-left: 4px solid var(--color-gold);
-}
-.title-card--silver {
-  border-left: 4px solid var(--color-text-faint);
-}
- 
-.title-icon { font-size: 1.8rem; flex-shrink: 0; }
-.title-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
- 
-.title-name {
-  font-family: var(--font-display);
-  font-size: var(--text-base);
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 2px;
-}
-.title-org {
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-}
- 
-a.title-card--clickable {
-  text-decoration: none;
-  cursor: pointer;
-  flex-wrap: wrap;
-}
-a.title-card--clickable:hover {
-  border-color: var(--color-gold);
-  background: var(--color-primary-highlight);
-}
-.title-diploma-hint {
-  margin-left: auto;
-  font-size: var(--text-xs);
-  color: var(--color-gold);
-  font-weight: 600;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity var(--transition);
-}
-a.title-card--clickable:hover .title-diploma-hint {
-  opacity: 1;
-}
- 
-/* Award count grid */
-.award-counts {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-3);
-}
- 
-.award-count-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-5) var(--space-3);
-  background: var(--color-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  text-align: center;
-  gap: var(--space-1);
-  transition: box-shadow var(--transition), transform var(--transition);
-}
-.award-count-item:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
- 
-.award-count-item--highlight {
-  background: linear-gradient(135deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 80%, var(--color-gold)));
-  border-color: var(--color-primary);
-}
-[data-theme='dark'] .award-count-item--highlight {
-  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
-}
-.award-count-item--highlight .award-count-number,
-.award-count-item--highlight .award-count-label {
-  color: var(--color-text-inverse);
-}
-[data-theme='dark'] .award-count-item--highlight .award-count-number,
-[data-theme='dark'] .award-count-item--highlight .award-count-label {
-  color: #16130d;
-}
- 
-.award-count-number {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--color-gold);
-  line-height: 1;
-}
-.award-count-item--highlight .award-count-number {
-  color: var(--color-text-inverse);
-}
-.award-count-label {
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--color-text-muted);
-  letter-spacing: 0.06em;
-}
- 
-/* Trophy photo */
-.trophy-photo-wrap {
-  border-radius: var(--radius-xl);
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-  max-height: 480px;
-}
-.trophy-photo {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-}
- 
-/* ============================================================
-   CONTACT
-   ============================================================ */
-.contact-section { background: var(--color-bg); }
- 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-5);
-  margin-top: var(--space-2);
-}
- 
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-5);
-}
- 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-}
- 
-.form-group label {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text);
-  letter-spacing: 0.02em;
-}
- 
-.form-group input,
-.form-group textarea {
-  padding: var(--space-4) var(--space-5);
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  font-size: var(--text-base);
-  color: var(--color-text);
-  width: 100%;
-  resize: vertical;
-}
-.form-group input:focus,
-.form-group textarea:focus {
-  outline: 2px solid var(--color-gold);
-  outline-offset: 2px;
-  border-color: var(--color-gold);
-}
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: var(--color-text-faint);
-}
-.form-group input.invalid,
-.form-group textarea.invalid {
-  border-color: var(--color-error);
-}
- 
-.field-error {
-  font-size: var(--text-xs);
-  color: var(--color-error);
-  display: none;
-}
-.form-group:has(input.invalid) .field-error,
-.form-group:has(textarea.invalid) .field-error {
-  display: block;
-}
- 
-.form-success {
-  padding: var(--space-5);
-  background: color-mix(in srgb, var(--color-success) 12%, var(--color-bg));
-  border: 1px solid var(--color-success);
-  border-radius: var(--radius-md);
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-success);
-  text-align: center;
-}
- 
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.site-footer {
-  background: var(--color-primary);
-  color: var(--color-text-inverse);
-  padding-block: var(--space-10);
-}
-[data-theme='dark'] .site-footer {
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-border);
-  color: var(--color-text);
-}
- 
-.footer-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-3);
-  text-align: center;
-}
- 
-.footer-brand {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-1);
-}
- 
-.footer-name {
-  font-family: var(--font-display);
-  font-size: var(--text-xl);
-  font-weight: 700;
-  color: var(--color-gold);
-}
-[data-theme='dark'] .footer-name { color: var(--color-gold); }
- 
-.footer-subtitle {
-  font-size: var(--text-sm);
-  opacity: 0.7;
-}
- 
-.footer-owner {
-  font-size: var(--text-sm);
-  opacity: 0.8;
-}
- 
-.footer-copy {
-  font-size: var(--text-xs);
-  opacity: 0.55;
-  max-width: none;
-}
- 
-/* ============================================================
-   LIGHTBOX
-   ============================================================ */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  background: rgba(16,13,8,0.96);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s;
-}
-.lightbox.open {
-  opacity: 1;
-  pointer-events: all;
-}
-.lightbox img {
-  max-width: 90vw;
-  max-height: 88vh;
-  object-fit: contain;
-  border-radius: var(--radius-lg);
-}
-.lightbox-close {
-  position: absolute;
-  top: var(--space-5);
-  right: var(--space-5);
-  background: rgba(255,255,255,0.12);
-  border: none;
-  color: #fff;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-full);
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-.lightbox-close:hover { background: rgba(255,255,255,0.24); }
- 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 900px) {
-  .main-nav { display: none; }
-  .burger { display: flex; }
- 
-  .about-grid { grid-template-columns: 1fr; }
-  .about-media { order: -1; }
-  .about-img-wrap { aspect-ratio: 4/3; }
- 
-  .awards-layout { grid-template-columns: 1fr; }
  
-  .gallery-grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: 220px;
+  // Update lang buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.dataset.lang === lang;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+}
+ 
+/* ---- Dark mode ---- */
+(function () {
+  const toggle = document.querySelector('[data-theme-toggle]');
+  const root = document.documentElement;
+  let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  root.setAttribute('data-theme', theme);
+ 
+  const sunSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+  const moonSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+ 
+  if (toggle) {
+    toggle.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
+    toggle.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+      toggle.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
+      toggle.setAttribute('aria-label', theme === 'dark' ? 'Přepnout světlý režim' : 'Přepnout tmavý režim');
+    });
   }
-  .gallery-item--large { grid-column: span 2; grid-row: span 1; }
-  .gallery-item--wide  { grid-column: span 2; }
+})();
+ 
+/* ---- Language switcher ---- */
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    applyTranslation(btn.dataset.lang);
+  });
+});
+ 
+/* Initial language */
+applyTranslation('cs');
+ 
+/* ---- Mobile nav ---- */
+const burger = document.getElementById('burger');
+const mobileNav = document.getElementById('mobile-nav');
+ 
+if (burger && mobileNav) {
+  burger.addEventListener('click', () => {
+    const isOpen = mobileNav.style.display === 'flex';
+    mobileNav.style.display = isOpen ? 'none' : 'flex';
+    mobileNav.hidden = isOpen;
+    burger.setAttribute('aria-expanded', String(!isOpen));
+  });
+ 
+  mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.style.display = 'none';
+      mobileNav.hidden = true;
+      burger.setAttribute('aria-expanded', 'false');
+    });
+  });
 }
  
-@media (max-width: 600px) {
-  .gallery-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 180px;
+/* ---- Scroll reveal ---- */
+const revealEls = document.querySelectorAll(
+  '.section-title, .section-subtitle, .about-text, .about-media, ' +
+  '.gallery-item, .title-card, .award-count-item, .contact-form, ' +
+  '.trophy-photo-wrap, .stat-card, .about-health-card, .stats-row'
+);
+ 
+revealEls.forEach((el, i) => {
+  el.classList.add('reveal');
+  // Stagger children in groups
+  const mod = i % 4;
+  if (mod === 1) el.classList.add('reveal-delay-1');
+  if (mod === 2) el.classList.add('reveal-delay-2');
+  if (mod === 3) el.classList.add('reveal-delay-3');
+});
+ 
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        revealObserver.unobserve(e.target);
+      }
+    });
+  },
+  { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+);
+ 
+revealEls.forEach(el => revealObserver.observe(el));
+ 
+/* ---- Gallery lightbox ---- */
+const lightbox = document.createElement('div');
+lightbox.className = 'lightbox';
+lightbox.setAttribute('role', 'dialog');
+lightbox.setAttribute('aria-modal', 'true');
+lightbox.innerHTML = '<button class="lightbox-close" aria-label="Zavřít">✕</button><img src="" alt="" />';
+document.body.appendChild(lightbox);
+ 
+const lbImg = lightbox.querySelector('img');
+const lbClose = lightbox.querySelector('.lightbox-close');
+ 
+document.querySelectorAll('.gallery-item img').forEach(img => {
+  img.parentElement.style.cursor = 'zoom-in';
+  img.parentElement.addEventListener('click', () => {
+    lbImg.src = img.src;
+    lbImg.alt = img.alt;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  });
+});
+ 
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+lbClose.addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+ 
+/* ---- Contact form client-side validation ---- */
+const form = document.getElementById('contactForm');
+const formSuccess = document.getElementById('formSuccess');
+ 
+if (form) {
+  form.addEventListener('submit', function (e) {
+    let valid = true;
+ 
+    form.querySelectorAll('[required]').forEach(field => {
+      field.classList.remove('invalid');
+      if (!field.value.trim()) {
+        field.classList.add('invalid');
+        valid = false;
+      }
+    });
+ 
+    const emailField = form.querySelector('input[type="email"]');
+    if (emailField && emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+      emailField.classList.add('invalid');
+      valid = false;
+    }
+ 
+    if (!valid) {
+      e.preventDefault();
+      form.querySelector('.invalid')?.focus();
+    }
+  });
+ 
+  // Remove invalid class on input
+  form.querySelectorAll('input, textarea').forEach(field => {
+    field.addEventListener('input', () => field.classList.remove('invalid'));
+  });
+}
+ 
+/* ---- Load dynamic content from content.json ---- */
+fetch('/content.json')
+  .then(r => r.json())
+  .then(data => {
+    // Update award counts
+    const v = data.vystavni_vysledky;
+    const mapping = [
+      { key: 'cac',                    label: 'CAC' },
+      { key: 'cacib',                  label: 'CACIB' },
+      { key: 'cajc',                   label: 'CAJC' },
+      { key: 'fci_cacib_j',            label: 'FCI-CACIB-J' },
+      { key: 'bob',                    label: 'BOB' },
+      { key: 'bos',                    label: 'BOS' },
+      { key: 'boj',                    label: 'BOJ' },
+      { key: 'res_cacib',              label: 'res-CACIB' },
+      { key: 'narodni_vitez',          label: null },
+      { key: 'klubovy_nemecky_vitez',  label: null }
+    ];
+    document.querySelectorAll('.award-count-item').forEach((item, i) => {
+      if (mapping[i] && v[mapping[i].key] !== undefined) {
+        item.querySelector('.award-count-number').textContent = v[mapping[i].key] + '×';
+      }
+    });
+ 
+    // Rebuild title cards from content.json
+    const titleCards = document.querySelector('.title-cards');
+    if (titleCards && data.tituly && data.tituly.length) {
+      titleCards.innerHTML = data.tituly.map(t => `
+        <a href="${t.diplom || '#'}" target="_blank"
+           class="title-card title-card--${t.stupen} title-card--clickable"
+           rel="noopener" ${!t.diplom ? 'onclick="return false"' : ''}>
+          <div class="title-icon">${t.ikona}</div>
+          <div class="title-info">
+            <div class="title-name"${t.i18n_key ? ` data-i18n="${t.i18n_key}"` : ''}>${t.nazev}</div>
+            <div class="title-org">${t.organizace}</div>
+          </div>
+          ${t.diplom ? '<div class="title-diploma-hint">Zobrazit diplom →</div>' : ''}
+        </a>`).join('');
+ 
+      // Re-apply current language so newly built cards are translated immediately
+      applyTranslation(currentLang);
+    }
+  })
+  .catch(() => {}); // Silently fall back to hardcoded HTML
+ 
+/* ---- Header shadow on scroll ---- */
+const header = document.querySelector('.site-header');
+window.addEventListener('scroll', () => {
+  if (header) {
+    header.style.boxShadow = window.scrollY > 10
+      ? '0 2px 16px rgba(30,26,18,0.10)'
+      : '';
   }
-  .gallery-item--large { grid-column: span 2; }
-  .gallery-item--wide  { grid-column: span 2; }
- 
-  .form-row { grid-template-columns: 1fr; }
- 
-  .award-counts { grid-template-columns: repeat(3, 1fr); }
- 
-  .stats-row { flex-direction: column; }
- 
-  .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
-}
- 
-/* ============================================================
-   SCROLL REVEAL
-   ============================================================ */
-.reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: none;
-}
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
- 
-/* Mobile language switcher */
-.mobile-lang-switcher {
-  display: flex;
-  gap: 0.5rem;
-  padding: 1rem 1.5rem;
-  border-top: 1px solid var(--color-border);
-  margin-top: 0.5rem;
-}
+}, { passive: true });
