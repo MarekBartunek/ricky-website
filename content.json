@@ -1,39 +1,45 @@
+
 {
   "vystavni_vysledky": {
-    "cac": 10,
-    "cacib": 4,
-    "cajc": 4,
+    "cac": 11,
+    "cacib": 7,
+    "cajc": 3,
     "fci_cacib_j": 1,
-    "bob": 3,
-    "bos": 3,
+    "bob": 5,
+    "bos": 4,
     "boj": 2,
     "res_cacib": 2,
-    "narodni_vitez": 7
+    "narodni_vitez": 9,
+    "klubovy_nemecky_vitez": 4
   },
   "tituly": [
     {
-      "nazev": "Evropský vítěz mladých",
+      "nazev": "Evropský Klubový Vítěz Mladých",
+      "i18n_key": "title_european",
       "organizace": "Euro Griffon Papillon",
       "stupen": "gold",
       "ikona": "🏆",
       "diplom": "diplomy/evropsky_vitez_mladych.pdf"
     },
     {
-      "nazev": "Vítěz speciální výstavy mladých",
-      "organizace": "Speciální výstava",
+      "nazev": "Český Juniorský Šampion",
+      "i18n_key": "title_czech_junior",
+      "organizace": "ČKS",
       "stupen": "gold",
       "ikona": "🥇",
-      "diplom": "diplomy/vitez_specialni_vystavy.pdf"
-    },
-    {
-      "nazev": "Český juniorský šampion",
-      "organizace": "ČKS",
-      "stupen": "silver",
-      "ikona": "🏅",
       "diplom": "diplomy/cesky_juniorsky_sampion.pdf"
     },
     {
-      "nazev": "Rakouský juniorský šampion",
+      "nazev": "Český Šampion",
+      "i18n_key": "title_czech_champion",
+      "organizace": "ČKS",
+      "stupen": "silver",
+      "ikona": "🏅",
+      "diplom": "diplomy/vitez_specialni_vystavy.pdf"
+    },
+    {
+      "nazev": "Rakouský Šampion",
+      "i18n_key": "title_austrian",
       "organizace": "ÖKV",
       "stupen": "silver",
       "ikona": "🏅",
