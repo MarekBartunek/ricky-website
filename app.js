@@ -1,8 +1,9 @@
+
 /* ======================================================
    Ricky – Francouzská lilie
    App JS: i18n, dark mode, mobile nav, lightbox, scroll reveal, form
    ====================================================== */
-
+ 
 /* ---- Translations ---- */
 const i18n = {
   cs: {
@@ -39,10 +40,10 @@ const i18n = {
     awards_subtitle: 'Každá stuha, každý pohár — výsledek tvrdé práce a radosti ze života v ringu.',
     awards_titles_heading: 'Šampionské tituly',
     awards_results_heading:'Výstavní výsledky',
-    title_european:  'Evropský vítěz mladých',
-    title_special:   'Vítěz speciální výstavy mladých',
-    title_czech_junior: 'Český juniorský šampion',
-    title_austrian:  'Rakouský juniorský šampion',
+    title_european:       'Evropský Klubový Vítěz Mladých',
+    title_czech_junior:   'Český Juniorský Šampion',
+    title_czech_champion: 'Český Šampion',
+    title_austrian:       'Rakouský Šampion',
     award_national:  'Národní vítěz',
     contact_title:   'Napište nám',
     contact_subtitle:'Máte zájem o bližší informace o Rickym nebo chovných možnostech? Napište nám!',
@@ -96,10 +97,10 @@ const i18n = {
     awards_subtitle: 'Jedes Band, jeder Pokal — Ergebnis harter Arbeit und Freude am Ring.',
     awards_titles_heading: 'Champion-Titel',
     awards_results_heading:'Ausstellungsergebnisse',
-    title_european:  'Europäischer Jugendsieger',
-    title_special:   'Sieger der Spezialausstellung der Jugend',
-    title_czech_junior: 'Tschechischer Jugendchampion',
-    title_austrian:  'Österreichischer Champion',
+    title_european:       'Europäischer Klubjugendsieger',
+    title_czech_junior:   'Tschechischer Jugendchampion',
+    title_czech_champion: 'Tschechischer Champion',
+    title_austrian:       'Österreichischer Champion',
     award_national:  'Nationaler Sieger',
     contact_title:   'Schreiben Sie uns',
     contact_subtitle:'Interesse an Ricky oder Zuchtmöglichkeiten? Wir freuen uns auf Ihre Nachricht!',
@@ -153,10 +154,10 @@ const i18n = {
     awards_subtitle: 'Every ribbon, every trophy — the result of hard work and joy in the ring.',
     awards_titles_heading: 'Champion Titles',
     awards_results_heading:'Show Results',
-    title_european:  'European Youth Winner',
-    title_special:   'Winner of the Youth Special Show',
-    title_czech_junior: 'Czech Junior Champion',
-    title_austrian:  'Austrian Champion',
+    title_european:       'European Club Youth Winner',
+    title_czech_junior:   'Czech Junior Champion',
+    title_czech_champion: 'Czech Champion',
+    title_austrian:       'Austrian Champion',
     award_national:  'National Winner',
     contact_title:   'Contact Us',
     contact_subtitle:'Interested in learning more about Ricky or breeding opportunities? Drop us a message!',
@@ -177,19 +178,19 @@ const i18n = {
     footer_copy:     '© 2026 Ricky Francouzská lilie. All rights reserved.',
   }
 };
-
+ 
 /* ---- i18n Engine ---- */
 let currentLang = 'cs';
-
+ 
 function applyTranslation(lang) {
   currentLang = lang;
   const t = i18n[lang];
   if (!t) return;
-
+ 
   // Set html lang
   const langMap = { cs: 'cs', de: 'de', en: 'en' };
   document.documentElement.lang = langMap[lang] || 'cs';
-
+ 
   // Translate all [data-i18n] elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
@@ -197,7 +198,7 @@ function applyTranslation(lang) {
       el.innerHTML = t[key];
     }
   });
-
+ 
   // Translate placeholders
   document.querySelectorAll('[data-placeholder]').forEach(el => {
     const key = el.getAttribute('data-placeholder');
@@ -205,7 +206,7 @@ function applyTranslation(lang) {
       el.setAttribute('placeholder', t[key]);
     }
   });
-
+ 
   // Update form hidden subject line
   const subjectInput = document.querySelector('input[name="_subject"]');
   if (subjectInput) {
@@ -216,7 +217,7 @@ function applyTranslation(lang) {
     };
     subjectInput.value = subjects[lang];
   }
-
+ 
   // Update lang buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const isActive = btn.dataset.lang === lang;
@@ -224,17 +225,17 @@ function applyTranslation(lang) {
     btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
   });
 }
-
+ 
 /* ---- Dark mode ---- */
 (function () {
   const toggle = document.querySelector('[data-theme-toggle]');
   const root = document.documentElement;
   let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   root.setAttribute('data-theme', theme);
-
+ 
   const sunSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
   const moonSVG = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
-
+ 
   if (toggle) {
     toggle.innerHTML = theme === 'dark' ? sunSVG : moonSVG;
     toggle.addEventListener('click', () => {
@@ -245,21 +246,21 @@ function applyTranslation(lang) {
     });
   }
 })();
-
+ 
 /* ---- Language switcher ---- */
 document.querySelectorAll('.lang-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     applyTranslation(btn.dataset.lang);
   });
 });
-
+ 
 /* Initial language */
 applyTranslation('cs');
-
+ 
 /* ---- Mobile nav ---- */
 const burger = document.getElementById('burger');
 const mobileNav = document.getElementById('mobile-nav');
-
+ 
 if (burger && mobileNav) {
   burger.addEventListener('click', () => {
     const isOpen = mobileNav.style.display === 'flex';
@@ -267,7 +268,7 @@ if (burger && mobileNav) {
     mobileNav.hidden = isOpen;
     burger.setAttribute('aria-expanded', String(!isOpen));
   });
-
+ 
   mobileNav.querySelectorAll('.mobile-nav-link').forEach(link => {
     link.addEventListener('click', () => {
       mobileNav.style.display = 'none';
@@ -276,14 +277,14 @@ if (burger && mobileNav) {
     });
   });
 }
-
+ 
 /* ---- Scroll reveal ---- */
 const revealEls = document.querySelectorAll(
   '.section-title, .section-subtitle, .about-text, .about-media, ' +
   '.gallery-item, .title-card, .award-count-item, .contact-form, ' +
   '.trophy-photo-wrap, .stat-card, .about-health-card, .stats-row'
 );
-
+ 
 revealEls.forEach((el, i) => {
   el.classList.add('reveal');
   // Stagger children in groups
@@ -292,7 +293,7 @@ revealEls.forEach((el, i) => {
   if (mod === 2) el.classList.add('reveal-delay-2');
   if (mod === 3) el.classList.add('reveal-delay-3');
 });
-
+ 
 const revealObserver = new IntersectionObserver(
   entries => {
     entries.forEach(e => {
@@ -304,9 +305,9 @@ const revealObserver = new IntersectionObserver(
   },
   { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
 );
-
+ 
 revealEls.forEach(el => revealObserver.observe(el));
-
+ 
 /* ---- Gallery lightbox ---- */
 const lightbox = document.createElement('div');
 lightbox.className = 'lightbox';
@@ -314,10 +315,10 @@ lightbox.setAttribute('role', 'dialog');
 lightbox.setAttribute('aria-modal', 'true');
 lightbox.innerHTML = '<button class="lightbox-close" aria-label="Zavřít">✕</button><img src="" alt="" />';
 document.body.appendChild(lightbox);
-
+ 
 const lbImg = lightbox.querySelector('img');
 const lbClose = lightbox.querySelector('.lightbox-close');
-
+ 
 document.querySelectorAll('.gallery-item img').forEach(img => {
   img.parentElement.style.cursor = 'zoom-in';
   img.parentElement.addEventListener('click', () => {
@@ -328,7 +329,7 @@ document.querySelectorAll('.gallery-item img').forEach(img => {
     lbClose.focus();
   });
 });
-
+ 
 function closeLightbox() {
   lightbox.classList.remove('open');
   document.body.style.overflow = '';
@@ -336,15 +337,15 @@ function closeLightbox() {
 lbClose.addEventListener('click', closeLightbox);
 lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
-
+ 
 /* ---- Contact form client-side validation ---- */
 const form = document.getElementById('contactForm');
 const formSuccess = document.getElementById('formSuccess');
-
+ 
 if (form) {
   form.addEventListener('submit', function (e) {
     let valid = true;
-
+ 
     form.querySelectorAll('[required]').forEach(field => {
       field.classList.remove('invalid');
       if (!field.value.trim()) {
@@ -352,25 +353,25 @@ if (form) {
         valid = false;
       }
     });
-
+ 
     const emailField = form.querySelector('input[type="email"]');
     if (emailField && emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
       emailField.classList.add('invalid');
       valid = false;
     }
-
+ 
     if (!valid) {
       e.preventDefault();
       form.querySelector('.invalid')?.focus();
     }
   });
-
+ 
   // Remove invalid class on input
   form.querySelectorAll('input, textarea').forEach(field => {
     field.addEventListener('input', () => field.classList.remove('invalid'));
   });
 }
-
+ 
 /* ---- Load dynamic content from content.json ---- */
 fetch('/content.json')
   .then(r => r.json())
@@ -378,22 +379,23 @@ fetch('/content.json')
     // Update award counts
     const v = data.vystavni_vysledky;
     const mapping = [
-      { key: 'cac',          label: 'CAC' },
-      { key: 'cacib',        label: 'CACIB' },
-      { key: 'cajc',         label: 'CAJC' },
-      { key: 'fci_cacib_j',  label: 'FCI-CACIB-J' },
-      { key: 'bob',          label: 'BOB' },
-      { key: 'bos',          label: 'BOS' },
-      { key: 'boj',          label: 'BOJ' },
-      { key: 'res_cacib',    label: 'res-CACIB' },
-      { key: 'narodni_vitez', label: null }
+      { key: 'cac',                    label: 'CAC' },
+      { key: 'cacib',                  label: 'CACIB' },
+      { key: 'cajc',                   label: 'CAJC' },
+      { key: 'fci_cacib_j',            label: 'FCI-CACIB-J' },
+      { key: 'bob',                    label: 'BOB' },
+      { key: 'bos',                    label: 'BOS' },
+      { key: 'boj',                    label: 'BOJ' },
+      { key: 'res_cacib',              label: 'res-CACIB' },
+      { key: 'narodni_vitez',          label: null },
+      { key: 'klubovy_nemecky_vitez',  label: null }
     ];
     document.querySelectorAll('.award-count-item').forEach((item, i) => {
       if (mapping[i] && v[mapping[i].key] !== undefined) {
         item.querySelector('.award-count-number').textContent = v[mapping[i].key] + '×';
       }
     });
-
+ 
     // Rebuild title cards from content.json
     const titleCards = document.querySelector('.title-cards');
     if (titleCards && data.tituly && data.tituly.length) {
@@ -403,15 +405,18 @@ fetch('/content.json')
            rel="noopener" ${!t.diplom ? 'onclick="return false"' : ''}>
           <div class="title-icon">${t.ikona}</div>
           <div class="title-info">
-            <div class="title-name">${t.nazev}</div>
+            <div class="title-name"${t.i18n_key ? ` data-i18n="${t.i18n_key}"` : ''}>${t.nazev}</div>
             <div class="title-org">${t.organizace}</div>
           </div>
           ${t.diplom ? '<div class="title-diploma-hint">Zobrazit diplom →</div>' : ''}
         </a>`).join('');
+ 
+      // Re-apply current language so newly built cards are translated immediately
+      applyTranslation(currentLang);
     }
   })
   .catch(() => {}); // Silently fall back to hardcoded HTML
-
+ 
 /* ---- Header shadow on scroll ---- */
 const header = document.querySelector('.site-header');
 window.addEventListener('scroll', () => {
@@ -421,3 +426,4 @@ window.addEventListener('scroll', () => {
       : '';
   }
 }, { passive: true });
+ 
