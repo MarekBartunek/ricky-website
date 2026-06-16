@@ -20,6 +20,7 @@ const i18n = {
     stat_born:       'Datum narození',
     stat_class:      'Třída',
     stat_breeding:   'Status',
+    stat_breeding_value: 'Chovný',
     health_title:    'Zdravotní vyšetření',
     health_patella:  'Pately 0/0',
     health_teeth:    'Zuby 6/6',
@@ -77,6 +78,7 @@ const i18n = {
     stat_born:       'Geburtsdatum',
     stat_class:      'Klasse',
     stat_breeding:   'Status',
+    stat_breeding_value: 'Zuchtrüde',
     health_title:    'Gesundheitsuntersuchungen',
     health_patella:  'Patellae 0/0',
     health_teeth:    'Zähne 6/6',
@@ -134,6 +136,7 @@ const i18n = {
     stat_born:       'Date of birth',
     stat_class:      'Class',
     stat_breeding:   'Status',
+    stat_breeding_value: 'Breeding stud',
     health_title:    'Health Examinations',
     health_patella:  'Patellas 0/0',
     health_teeth:    'Teeth 6/6',
@@ -425,3 +428,4 @@ window.addEventListener('scroll', () => {
       : '';
   }
 }, { passive: true });
+ 
