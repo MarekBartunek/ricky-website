@@ -10,21 +10,25 @@ public_folder: images
 site_url: https://belgickygrifon-ricky.com
 display_url: https://belgickygrifon-ricky.com
 
+# POZOR: všechny sekce musí být v JEDNOM záznamu.
+# Decap rozlišuje záznamy podle cesty k souboru — kdyby jich víc ukazovalo
+# na content.json, zobrazí se všechny jako ten první a zbytek je nedostupný.
 collections:
-  - name: "nastaveni"
+  - name: "obsah"
     label: "Obsah webu"
     files:
-
-      # ------------------------------------------------------------------
-      - name: "galerie"
-        label: "📷 Galerie"
+      - name: "web"
+        label: "Web Ricky"
         file: "content.json"
         format: json
         fields:
-          - label: "Fotky"
+
+          # ---------------- galerie ----------------
+          - label: "📷 Fotky v galerii"
             name: "galerie"
             label_singular: "Fotka"
             widget: "list"
+            collapsed: true
             hint: "Pořadí měň přetažením. Fotky si předem zmenši, ideálně na šířku okolo 1600 px."
             summary: "{{fields.popis}}"
             fields:
@@ -41,15 +45,12 @@ collections:
               - { label: "Popisek (německy)", name: "popis_de", widget: "string", required: false, hint: "Nepovinné — prázdné pole zobrazí češtinu." }
               - { label: "Popisek (anglicky)", name: "popis_en", widget: "string", required: false, hint: "Nepovinné — prázdné pole zobrazí češtinu." }
 
-      # ------------------------------------------------------------------
-      - name: "vysledky"
-        label: "🏆 Výstavní výsledky"
-        file: "content.json"
-        format: json
-        fields:
-          - label: "Výstavní výsledky (počty)"
+          # ---------------- počty ocenění ----------------
+          - label: "🏆 Počty ocenění"
             name: "vystavni_vysledky"
             widget: "object"
+            collapsed: true
+            hint: "Velká čísla na webu. Po nové výstavě přičti jedničku. Číslo 0 se na webu nezobrazí."
             fields:
               - { label: "CAC", name: "cac", widget: "number", value_type: "int", min: 0 }
               - { label: "CACIB", name: "cacib", widget: "number", value_type: "int", min: 0 }
@@ -63,10 +64,12 @@ collections:
               - { label: "Národní vítěz", name: "narodni_vitez", widget: "number", value_type: "int", min: 0 }
               - { label: "Klubový německý vítěz", name: "klubovy_nemecky_vitez", widget: "number", value_type: "int", min: 0 }
 
-          - label: "Šampionské tituly"
+          # ---------------- tituly ----------------
+          - label: "🥇 Šampionské tituly"
             name: "tituly"
-            widget: "list"
             label_singular: "Titul"
+            widget: "list"
+            collapsed: true
             summary: "{{fields.nazev}}"
             fields:
               - { label: "Název titulu", name: "nazev", widget: "string" }
@@ -81,44 +84,18 @@ collections:
                 name: "ikona"
                 widget: "select"
                 options: ["🏆", "🥇", "🏅", "🥈", "⭐"]
-              - label: "Diplom"
-                name: "diplom"
-                widget: "string"
-                required: false
-                hint: "Např. diplomy/evropsky_vitez_mladych.pdf"
-              # POZOR: tohle pole propojuje titul s překlady v app.js.
-              # Needáváme ho pryč a needitujeme, jinak se ztratí němčina a angličtina.
+              - { label: "Diplom", name: "diplom", widget: "string", required: false, hint: "Např. diplomy/evropsky_vitez_mladych.pdf" }
               - label: "Překladový klíč (needitovat)"
                 name: "i18n_key"
                 widget: "string"
                 required: false
-                hint: "Technické pole. Nech ho být."
+                hint: "Technické pole — drží německý a anglický název. Nech ho být."
 
-      # ------------------------------------------------------------------
-      - name: "rodokmen"
-        label: "📄 Rodokmen"
-        file: "content.json"
-        format: json
-        fields:
-          - label: "Rodokmen"
-            name: "rodokmen"
-            widget: "object"
-            fields:
-              - label: "Odkaz na rodokmen"
-                name: "url"
-                widget: "string"
-                required: false
-                hint: "Celá adresa. Když pole vymažeš, tlačítko na webu zmizí."
-
-      # ------------------------------------------------------------------
-      - name: "texty"
-        label: "✏️ Texty na webu"
-        file: "content.json"
-        format: json
-        fields:
-          - label: "Texty"
+          # ---------------- texty ----------------
+          - label: "✏️ Texty na webu"
             name: "texty"
             widget: "object"
+            collapsed: true
             fields:
               - label: "Nadpis „O mně“"
                 name: "about_title"
@@ -156,3 +133,15 @@ collections:
                   - { label: "Česky", name: "cs", widget: "string" }
                   - { label: "Německy", name: "de", widget: "string", required: false }
                   - { label: "Anglicky", name: "en", widget: "string", required: false }
+
+          # ---------------- rodokmen ----------------
+          - label: "📄 Rodokmen"
+            name: "rodokmen"
+            widget: "object"
+            collapsed: true
+            fields:
+              - label: "Odkaz na rodokmen"
+                name: "url"
+                widget: "string"
+                required: false
+                hint: "Např. diplomy/rodokmen.pdf. Když pole vymažeš, tlačítko na webu zmizí."
