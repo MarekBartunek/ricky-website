@@ -1,4 +1,3 @@
-
 {
   "vystavni_vysledky": {
     "cac": 11,
@@ -45,5 +44,90 @@
       "ikona": "🏅",
       "diplom": "diplomy/rakousky_juniorsky_sampion.pdf"
     }
-  ]
+  ],
+  "galerie": [
+    {
+      "soubor": "images/ricky_show1.jpg",
+      "velikost": "large",
+      "popis": "Na výstavě",
+      "popis_de": "Bei der Ausstellung",
+      "popis_en": "At the show"
+    },
+    {
+      "soubor": "images/ricky_garden.jpg",
+      "velikost": "normal",
+      "popis": "Na zahradě",
+      "popis_de": "Im Garten",
+      "popis_en": "In the garden"
+    },
+    {
+      "soubor": "images/ricky_chair.jpg",
+      "velikost": "normal",
+      "popis": "Moje oblíbené místo",
+      "popis_de": "Mein Lieblingsplatz",
+      "popis_en": "My favourite spot"
+    },
+    {
+      "soubor": "images/ricky_home1.jpg",
+      "velikost": "normal",
+      "popis": "Doma",
+      "popis_de": "Zu Hause",
+      "popis_en": "At home"
+    },
+    {
+      "soubor": "images/ricky_trophies.jpg",
+      "velikost": "wide",
+      "popis": "Moje sbírka trofejí",
+      "popis_de": "Meine Trophäensammlung",
+      "popis_en": "My trophy collection"
+    },
+    {
+      "soubor": "images/ricky_trick.jpg",
+      "velikost": "normal",
+      "popis": "Dávám pac!",
+      "popis_de": "Pfötchen geben!",
+      "popis_en": "Giving a paw!"
+    },
+    {
+      "soubor": "images/ricky_award1.jpg",
+      "velikost": "normal",
+      "popis": "S majitelkou po výhře",
+      "popis_de": "Mit der Besitzerin nach dem Sieg",
+      "popis_en": "With my owner after a win"
+    },
+    {
+      "soubor": "images/ricky_show2.jpg",
+      "velikost": "normal",
+      "popis": "Připraven na ring",
+      "popis_de": "Bereit für den Ring",
+      "popis_en": "Ready for the ring"
+    }
+  ],
+  "texty": {
+    "about_title": {
+      "cs": "Ahoj, já jsem Ricky!",
+      "de": "Hallo, ich bin Ricky!",
+      "en": "Hello, I'm Ricky!"
+    },
+    "about_intro": {
+      "cs": "Jmenuji se <strong>Ricky, Francouzská lilie</strong> a jsem hrdý Belgický Griffonek plný energie, lásky a šampionského ducha. Narodil jsem se <strong>1. ledna 2024</strong> a od prvního dne dobývám výstavní ringy i srdce všech, kdo mě potkají.",
+      "de": "Mein Name ist <strong>Ricky, Francouzská lilie</strong> und ich bin ein stolzer Belgischer Griffon voller Energie, Liebe und Championgeist. Ich wurde am <strong>1. Januar 2024</strong> geboren und erobere seitdem Ausstellungsringe und Herzen.",
+      "en": "My name is <strong>Ricky, Francouzská lilie</strong> and I am a proud Belgian Griffon full of energy, love and champion spirit. I was born on <strong>1 January 2024</strong> and from day one I have been conquering show rings and hearts alike."
+    },
+    "about_body": {
+      "cs": "Jsem chovný pes s výborným zdravím — pately 0/0, zuby 6/6, výborné kardiologické vyšetření včetně zátěžového, a genetické vyšetření bez nálezu. Moje majitelka je <strong>Věra Bartůňková</strong>, která mě připravuje na ty největší výstavy.",
+      "de": "Ich bin ein Zuchtrüde mit ausgezeichneter Gesundheit — Patellae 0/0, Zähne 6/6, hervorragende kardiologische Untersuchung inkl. Belastungstest und genetische Untersuchung. Meine Besitzerin ist <strong>Věra Bartůňková</strong>, die mich auf die größten Ausstellungen vorbereitet.",
+      "en": "I am a breeding dog with excellent health — patellas 0/0, teeth 6/6, excellent cardiac examination including stress test, and genetic testing clear. My owner is <strong>Věra Bartůňková</strong>, who prepares me for the biggest shows."
+    },
+    "gallery_subtitle": {
+      "cs": "Od výstavního ringu až po pohodičku doma — to jsem já.",
+      "de": "Vom Ausstellungsring bis zur Gemütlichkeit zu Hause — das bin ich.",
+      "en": "From the show ring to cosy moments at home — that's me."
+    },
+    "awards_subtitle": {
+      "cs": "Každá stuha, každý pohár — výsledek tvrdé práce a radosti ze života v ringu.",
+      "de": "Jedes Band, jeder Pokal — Ergebnis harter Arbeit und Freude am Ring.",
+      "en": "Every ribbon, every trophy — the result of hard work and joy in the ring."
+    }
+  }
 }

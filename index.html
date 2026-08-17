@@ -325,5 +325,20 @@
   </footer>
 
   <script src="app.js"></script>
+
+  <!-- Netlify Identity: zachytí pozvánku nebo obnovu hesla z e-mailu
+       a pošle uživatele rovnou do správy webu. -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', function (user) {
+        if (!user) {
+          window.netlifyIdentity.on('login', function () {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+  </script>
 </body>
 </html>

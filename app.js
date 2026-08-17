@@ -183,6 +183,10 @@ const i18n = {
  
 /* ---- i18n Engine ---- */
 let currentLang = 'cs';
+
+/* Content loaded from content.json. Declared here because applyTranslation
+   runs on page init, before the fetch block further down is evaluated. */
+let siteContent = null;
  
 function applyTranslation(lang) {
   currentLang = lang;
@@ -220,6 +224,10 @@ function applyTranslation(lang) {
     subjectInput.value = subjects[lang];
   }
  
+  // Redraw CMS-driven gallery in the new language.
+  // Guarded because this runs before content.json has loaded.
+  if (typeof renderGalerie === 'function') renderGalerie();
+
   // Update lang buttons
   document.querySelectorAll('.lang-btn').forEach(btn => {
     const isActive = btn.dataset.lang === lang;
@@ -375,9 +383,60 @@ if (form) {
 }
  
 /* ---- Load dynamic content from content.json ---- */
+
+/* Pick a field in the current language, falling back to Czech.
+   Stored flat: popis / popis_de / popis_en */
+function langField(obj, base) {
+  if (!obj) return '';
+  if (currentLang === 'cs') return obj[base] || '';
+  return obj[base + '_' + currentLang] || obj[base] || '';
+}
+
+function esc(s) {
+  return String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
+/* Redraw the gallery from content.json. Called after the fetch resolves
+   and again on every language switch. Declared with `var` above so the
+   language switcher can call it before content.json has loaded. */
+function renderGalerie() {
+  const data = siteContent;
+  if (!data) return;
+  const grid = document.querySelector('.gallery-grid');
+  if (!grid || !Array.isArray(data.galerie) || !data.galerie.length) return;
+
+  grid.innerHTML = data.galerie.map(f => {
+    const mod = f.velikost && f.velikost !== 'normal'
+      ? ' gallery-item--' + esc(f.velikost) : '';
+    const popis = esc(langField(f, 'popis'));
+    return `
+      <figure class="gallery-item${mod}">
+        <img src="${esc(f.soubor)}" alt="${popis}" loading="lazy" />
+        <figcaption>${popis}</figcaption>
+      </figure>`;
+  }).join('');
+}
+
 fetch('/content.json')
   .then(r => r.json())
   .then(data => {
+    siteContent = data;
+
+    // Text blocks edited in the CMS override the built-in dictionary.
+    if (data.texty) {
+      Object.keys(data.texty).forEach(key => {
+        const blok = data.texty[key];
+        ['cs', 'de', 'en'].forEach(l => {
+          if (i18n[l] && blok[l]) i18n[l][key] = blok[l];
+        });
+      });
+      applyTranslation(currentLang);
+    }
+
+    renderGalerie();
+
     // Update award counts
     const v = data.vystavni_vysledky;
     const mapping = [
