@@ -26,6 +26,7 @@ const i18n = {
     health_teeth:    'Zuby 6/6',
     health_cardio:   'Výborné kardiologické vyšetření vč. zátěžového',
     health_genetic:  'Genetické vyšetření',
+    pedigree_button: 'Rodokmen',
     gallery_title:   'Moje fotky',
     gallery_subtitle:'Od výstavního ringu až po pohodičku doma — to jsem já.',
     gallery_cap1:    'Na výstavě',
@@ -84,6 +85,7 @@ const i18n = {
     health_teeth:    'Zähne 6/6',
     health_cardio:   'Hervorragende kardiologische Untersuchung inkl. Belastungstest',
     health_genetic:  'Genetische Untersuchung',
+    pedigree_button: 'Ahnentafel',
     gallery_title:   'Meine Fotos',
     gallery_subtitle:'Vom Ausstellungsring bis zur Gemütlichkeit zu Hause — das bin ich.',
     gallery_cap1:    'Bei der Ausstellung',
@@ -142,6 +144,7 @@ const i18n = {
     health_teeth:    'Teeth 6/6',
     health_cardio:   'Excellent cardiac examination incl. stress test',
     health_genetic:  'Genetic testing clear',
+    pedigree_button: 'Pedigree',
     gallery_title:   'My Photos',
     gallery_subtitle:'From the show ring to cosy moments at home — that\'s me.',
     gallery_cap1:    'At the show',
@@ -399,7 +402,7 @@ function esc(s) {
 }
 
 /* Redraw the gallery from content.json. Called after the fetch resolves
-   and again on every language switch. Declared with `var` above so the
+   and again on every language switch. Guarded at the call site so the
    language switcher can call it before content.json has loaded. */
 function renderGalerie() {
   const data = siteContent;
@@ -424,6 +427,14 @@ fetch('/content.json')
   .then(data => {
     siteContent = data;
 
+    // Pedigree (rodokmen) link — shown only when a URL is set in the CMS.
+    const rod = document.getElementById('rodokmen-odkaz');
+    if (rod) {
+      const url = ((data.rodokmen && data.rodokmen.url) || '').trim();
+      rod.hidden = !url;
+      if (url) rod.href = url;
+    }
+
     // Text blocks edited in the CMS override the built-in dictionary.
     if (data.texty) {
       Object.keys(data.texty).forEach(key => {
@@ -437,26 +448,16 @@ fetch('/content.json')
 
     renderGalerie();
 
-    // Update award counts
-    const v = data.vystavni_vysledky;
-    const mapping = [
-      { key: 'cac',                    label: 'CAC' },
-      { key: 'cacib',                  label: 'CACIB' },
-      { key: 'cajc',                   label: 'CAJC' },
-      { key: 'fci_cacib_j',            label: 'FCI-CACIB-J' },
-      { key: 'bob',                    label: 'BOB' },
-      { key: 'bos',                    label: 'BOS' },
-      { key: 'boj',                    label: 'BOJ' },
-      { key: 'res_cacib',              label: 'res-CACIB' },
-      { key: 'narodni_vitez',          label: null },
-      { key: 'klubovy_nemecky_vitez',  label: null }
-    ];
-    document.querySelectorAll('.award-count-item').forEach((item, i) => {
-      if (mapping[i] && v[mapping[i].key] !== undefined) {
-        item.querySelector('.award-count-number').textContent = v[mapping[i].key] + '×';
-      }
+    // Update award counts. Matched on data-count-key rather than DOM order, so
+    // a new counter can be added to the HTML without shifting the others.
+    const v = data.vystavni_vysledky || {};
+    document.querySelectorAll('.award-count-item[data-count-key]').forEach(item => {
+      const num = item.querySelector('.award-count-number');
+      const val = v[item.dataset.countKey];
+      if (num && val !== undefined) num.textContent = val + '\u00d7';
+      item.hidden = !val;   // hide counters that are missing or zero
     });
- 
+
     // Rebuild title cards from content.json
     const titleCards = document.querySelector('.title-cards');
     if (titleCards && data.tituly && data.tituly.length) {

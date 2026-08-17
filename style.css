@@ -1065,3 +1065,32 @@ a.title-card--clickable:hover .title-diploma-hint {
   border-top: 1px solid var(--color-border);
   margin-top: 0.5rem;
 }
+
+/* ---------- Rodokmen (pedigree) button ---------- */
+.pedigree-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding: var(--space-3) var(--space-5);
+  border: 1px solid var(--color-gold);
+  border-radius: 999px;
+  color: var(--color-gold);
+  background: transparent;
+  font-weight: 600;
+  font-size: var(--text-sm);
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+.pedigree-link:hover,
+.pedigree-link:focus-visible {
+  background: var(--color-gold);
+  color: var(--color-text-inverse);
+  transform: translateY(-1px);
+}
+.pedigree-link .pedigree-icon { font-size: 1.05em; line-height: 1; }
+.pedigree-link[hidden] { display: none; }
+
+/* The hidden attribute must win over the flex display above, otherwise a
+   counter with no value still renders as an empty tile. */
+.award-count-item[hidden] { display: none; }
