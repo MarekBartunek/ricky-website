@@ -7,11 +7,41 @@ locale: cs
 media_folder: images
 public_folder: images
 
+site_url: https://belgickygrifon-ricky.com
+display_url: https://belgickygrifon-ricky.com
+
 collections:
   - name: "nastaveni"
-    label: "Nastavení webu"
+    label: "Obsah webu"
     files:
 
+      # ------------------------------------------------------------------
+      - name: "galerie"
+        label: "📷 Galerie"
+        file: "content.json"
+        format: json
+        fields:
+          - label: "Fotky"
+            name: "galerie"
+            label_singular: "Fotka"
+            widget: "list"
+            hint: "Pořadí měň přetažením. Fotky si předem zmenši, ideálně na šířku okolo 1600 px."
+            summary: "{{fields.popis}}"
+            fields:
+              - { label: "Obrázek", name: "soubor", widget: "image" }
+              - { label: "Popisek (česky)", name: "popis", widget: "string" }
+              - label: "Velikost dlaždice"
+                name: "velikost"
+                widget: "select"
+                default: "normal"
+                options:
+                  - { label: "Normální", value: "normal" }
+                  - { label: "Velká", value: "large" }
+                  - { label: "Široká", value: "wide" }
+              - { label: "Popisek (německy)", name: "popis_de", widget: "string", required: false, hint: "Nepovinné — prázdné pole zobrazí češtinu." }
+              - { label: "Popisek (anglicky)", name: "popis_en", widget: "string", required: false, hint: "Nepovinné — prázdné pole zobrazí češtinu." }
+
+      # ------------------------------------------------------------------
       - name: "vysledky"
         label: "🏆 Výstavní výsledky"
         file: "content.json"
@@ -30,24 +60,82 @@ collections:
               - { label: "BOJ", name: "boj", widget: "number", value_type: "int", min: 0 }
               - { label: "res-CACIB", name: "res_cacib", widget: "number", value_type: "int", min: 0 }
               - { label: "Národní vítěz", name: "narodni_vitez", widget: "number", value_type: "int", min: 0 }
+              - { label: "Klubový německý vítěz", name: "klubovy_nemecky_vitez", widget: "number", value_type: "int", min: 0 }
 
           - label: "Šampionské tituly"
             name: "tituly"
             widget: "list"
             label_singular: "Titul"
+            summary: "{{fields.nazev}}"
             fields:
               - { label: "Název titulu", name: "nazev", widget: "string" }
               - { label: "Organizace", name: "organizace", widget: "string" }
-              - label: "Stupeň (gold nebo silver)"
+              - label: "Stupeň"
                 name: "stupen"
                 widget: "select"
-                options: ["gold", "silver"]
+                options:
+                  - { label: "Zlatý", value: "gold" }
+                  - { label: "Stříbrný", value: "silver" }
               - label: "Ikona"
                 name: "ikona"
                 widget: "select"
                 options: ["🏆", "🥇", "🏅", "🥈", "⭐"]
-              - label: "Diplom (PDF soubor v složce diplomy/)"
+              - label: "Diplom"
                 name: "diplom"
                 widget: "string"
                 required: false
                 hint: "Např. diplomy/evropsky_vitez_mladych.pdf"
+              # POZOR: tohle pole propojuje titul s překlady v app.js.
+              # Needáváme ho pryč a needitujeme, jinak se ztratí němčina a angličtina.
+              - label: "Překladový klíč (needitovat)"
+                name: "i18n_key"
+                widget: "string"
+                required: false
+                hint: "Technické pole. Nech ho být."
+
+      # ------------------------------------------------------------------
+      - name: "texty"
+        label: "✏️ Texty na webu"
+        file: "content.json"
+        format: json
+        fields:
+          - label: "Texty"
+            name: "texty"
+            widget: "object"
+            fields:
+              - label: "Nadpis „O mně“"
+                name: "about_title"
+                widget: "object"
+                fields:
+                  - { label: "Česky", name: "cs", widget: "string" }
+                  - { label: "Německy", name: "de", widget: "string", required: false }
+                  - { label: "Anglicky", name: "en", widget: "string", required: false }
+              - label: "Úvodní odstavec"
+                name: "about_intro"
+                widget: "object"
+                hint: "Tučné písmo se píše jako <strong>text</strong>."
+                fields:
+                  - { label: "Česky", name: "cs", widget: "text" }
+                  - { label: "Německy", name: "de", widget: "text", required: false }
+                  - { label: "Anglicky", name: "en", widget: "text", required: false }
+              - label: "Druhý odstavec (zdraví, majitelka)"
+                name: "about_body"
+                widget: "object"
+                fields:
+                  - { label: "Česky", name: "cs", widget: "text" }
+                  - { label: "Německy", name: "de", widget: "text", required: false }
+                  - { label: "Anglicky", name: "en", widget: "text", required: false }
+              - label: "Podnadpis u galerie"
+                name: "gallery_subtitle"
+                widget: "object"
+                fields:
+                  - { label: "Česky", name: "cs", widget: "string" }
+                  - { label: "Německy", name: "de", widget: "string", required: false }
+                  - { label: "Anglicky", name: "en", widget: "string", required: false }
+              - label: "Podnadpis u ocenění"
+                name: "awards_subtitle"
+                widget: "object"
+                fields:
+                  - { label: "Česky", name: "cs", widget: "string" }
+                  - { label: "Německy", name: "de", widget: "string", required: false }
+                  - { label: "Anglicky", name: "en", widget: "string", required: false }
