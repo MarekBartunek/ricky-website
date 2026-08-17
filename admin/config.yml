@@ -58,6 +58,7 @@ collections:
               - { label: "BOB", name: "bob", widget: "number", value_type: "int", min: 0 }
               - { label: "BOS", name: "bos", widget: "number", value_type: "int", min: 0 }
               - { label: "BOJ", name: "boj", widget: "number", value_type: "int", min: 0 }
+              - { label: "res-CAC", name: "res_cac", widget: "number", value_type: "int", min: 0 }
               - { label: "res-CACIB", name: "res_cacib", widget: "number", value_type: "int", min: 0 }
               - { label: "Národní vítěz", name: "narodni_vitez", widget: "number", value_type: "int", min: 0 }
               - { label: "Klubový německý vítěz", name: "klubovy_nemecky_vitez", widget: "number", value_type: "int", min: 0 }
@@ -92,6 +93,22 @@ collections:
                 widget: "string"
                 required: false
                 hint: "Technické pole. Nech ho být."
+
+      # ------------------------------------------------------------------
+      - name: "rodokmen"
+        label: "📄 Rodokmen"
+        file: "content.json"
+        format: json
+        fields:
+          - label: "Rodokmen"
+            name: "rodokmen"
+            widget: "object"
+            fields:
+              - label: "Odkaz na rodokmen"
+                name: "url"
+                widget: "string"
+                required: false
+                hint: "Celá adresa. Když pole vymažeš, tlačítko na webu zmizí."
 
       # ------------------------------------------------------------------
       - name: "texty"
