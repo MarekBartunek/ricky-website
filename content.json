@@ -1,16 +1,17 @@
 {
   "vystavni_vysledky": {
-    "cac": 11,
-    "cacib": 7,
+    "cac": 15,
+    "cacib": 11,
     "cajc": 3,
     "fci_cacib_j": 1,
-    "bob": 5,
+    "bob": 9,
     "bos": 4,
     "boj": 2,
     "res_cac": 0,
     "res_cacib": 2,
-    "narodni_vitez": 9,
-    "klubovy_nemecky_vitez": 4
+    "narodni_vitez": 12,
+    "klubovy_nemecky_vitez": 4,
+    "oblastni_vitez": 1
   },
   "tituly": [
     {
@@ -44,6 +45,14 @@
       "stupen": "silver",
       "ikona": "🏅",
       "diplom": "diplomy/rakousky_juniorsky_sampion.pdf"
+    },
+    {
+      "nazev": "Rakouský Grand Champion",
+      "i18n_key": "title_austrian_gc",
+      "organizace": "ÖKV",
+      "stupen": "gold",
+      "ikona": "🏆",
+      "diplom": ""
     }
   ],
   "galerie": [
@@ -102,6 +111,48 @@
       "popis": "Připraven na ring",
       "popis_de": "Bereit für den Ring",
       "popis_en": "Ready for the ring"
+    },
+    {
+      "soubor": "images/ricky_salzburg_cacib.jpg",
+      "velikost": "normal",
+      "popis": "CACIB Salzburg a BOB",
+      "popis_de": "CACIB Salzburg und BOB",
+      "popis_en": "CACIB Salzburg and BOB"
+    },
+    {
+      "soubor": "images/ricky_salzburg_stuhy.jpg",
+      "velikost": "normal",
+      "popis": "Stuhy ze Salzburgu",
+      "popis_de": "Schleifen aus Salzburg",
+      "popis_en": "Ribbons from Salzburg"
+    },
+    {
+      "soubor": "images/ricky_ring_posuzovani.jpg",
+      "velikost": "normal",
+      "popis": "V ringu před rozhodčí",
+      "popis_de": "Im Ring vor der Richterin",
+      "popis_en": "In the ring with the judge"
+    },
+    {
+      "soubor": "images/ricky_rozhodci_vitez.jpg",
+      "velikost": "normal",
+      "popis": "S rozhodčí po výhře",
+      "popis_de": "Mit der Richterin nach dem Sieg",
+      "popis_en": "With the judge after the win"
+    },
+    {
+      "soubor": "images/ricky_ring_stul.jpg",
+      "velikost": "normal",
+      "popis": "Posuzování na stole",
+      "popis_de": "Bewertung auf dem Tisch",
+      "popis_en": "Being judged on the table"
+    },
+    {
+      "soubor": "images/ricky_skupina_vitezove.jpg",
+      "velikost": "normal",
+      "popis": "Mezi ostatními griffonky",
+      "popis_de": "Unter anderen Griffons",
+      "popis_en": "Among fellow griffons"
     }
   ],
   "texty": {
