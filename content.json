@@ -1,17 +1,17 @@
 {
   "vystavni_vysledky": {
-    "cac": 18,
-    "cacib": 14,
+    "cac": 15,
+    "cacib": 11,
     "cajc": 3,
     "fci_cacib_j": 1,
-    "bob": 11,
-    "bos": 5,
+    "bob": 9,
+    "bos": 4,
     "boj": 2,
-    "res_cac": 1,
-    "res_cacib": 3,
+    "res_cac": 0,
+    "res_cacib": 2,
     "narodni_vitez": 12,
     "klubovy_nemecky_vitez": 4,
-    "oblastni_vitez": 2
+    "oblastni_vitez": 1
   },
   "tituly": [
     {
@@ -45,14 +45,6 @@
       "stupen": "silver",
       "ikona": "🏅",
       "diplom": "diplomy/rakousky_juniorsky_sampion.pdf"
-    },
-    {
-      "nazev": "Mezinárodní šampion krásy C.I.B.",
-      "i18n_key": "title_international",
-      "organizace": "FCI",
-      "stupen": "gold",
-      "ikona": "🏆",
-      "diplom": ""
     },
     {
       "nazev": "Rakouský Grand Champion",
